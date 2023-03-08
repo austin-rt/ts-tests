@@ -1,9 +1,10 @@
 type WordProps = {
   guessedLetters: string[];
   wordToGuess: string;
+  reveal?: boolean;
 };
 
-const Word = ({ guessedLetters, wordToGuess }: WordProps) => {
+const Word = ({ guessedLetters, wordToGuess, reveal = false }: WordProps) => {
   return (
     <div
       style={{
@@ -22,7 +23,12 @@ const Word = ({ guessedLetters, wordToGuess }: WordProps) => {
         >
           <span
             style={{
-              visibility: guessedLetters.includes(letter) ? 'visible' : 'hidden'
+              visibility:
+                guessedLetters.includes(letter) || reveal
+                  ? 'visible'
+                  : 'hidden',
+              color:
+                !guessedLetters.includes(letter) && reveal ? 'red' : 'black'
             }}
           >
             {letter}
