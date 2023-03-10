@@ -1,3 +1,13 @@
+export type RawNote = {
+  id: string;
+};
+
+export type RawNoteData = {
+  title: string;
+  markdown: string;
+  tagIs: string[];
+};
+
 export type Note = {
   id: string;
 } & NoteData;

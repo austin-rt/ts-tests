@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { Note, NoteData, Tag } from './models/types';
+import { Note, NoteData, Tag, RawNote } from './models/types';
 import NewNote from './components/NewNote';
 
 function App() {
+  const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
+  const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
   return (
     <Container className='my-4'>
       <Routes>
