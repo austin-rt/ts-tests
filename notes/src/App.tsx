@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useMemo } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { Tag, RawNote } from './models/types';
+import { v4 as uuidV4 } from 'uuid';
+import { Tag, RawNote, NoteData } from './models/types';
 import NewNote from './components/NewNote';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { useMemo } from 'react';
 
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
@@ -19,6 +20,15 @@ function App() {
     });
   }, [notes, tags]);
 
+  const onCreateNote = ({ tags, ...data }: NoteData) => {
+    setNotes(prevNotes => {
+      return [
+        ...prevNotes,
+        { ...data, id: uuidV4(), tagIds: tags.map(tag => tag.id) }
+      ];
+    });
+  };
+
   return (
     <Container className='my-4'>
       <Routes>
@@ -28,7 +38,7 @@ function App() {
         />
         <Route
           path='/new'
-          element={<NewNote />}
+          element={<NewNote onSubmit={onCreateNote} />}
         />
         <Route path=':id'>
           <Route
