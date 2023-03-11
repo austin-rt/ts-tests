@@ -4,8 +4,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { v4 as uuidV4 } from 'uuid';
 import { Tag, RawNote, NoteData } from './models/types';
-import NewNote from './components/NewNote';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import NewNote from './components/NewNote';
+import NoteList from './components/NoteList';
 
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
@@ -38,7 +39,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<h1>Home</h1>}
+          element={<NoteList />}
         />
         <Route
           path='/new'
