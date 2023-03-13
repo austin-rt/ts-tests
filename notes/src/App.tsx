@@ -7,6 +7,8 @@ import { Tag, RawNote, NoteData } from './models/types';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import NewNote from './components/NewNote';
 import NoteList from './components/NoteList';
+import NoteLayout from './components/NoteLayout';
+import Note from './components/Note';
 
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
@@ -56,10 +58,13 @@ function App() {
             />
           }
         />
-        <Route path=':id'>
+        <Route
+          path=':id'
+          element={<NoteLayout notes={notesWithTags} />}
+        >
           <Route
             index
-            element={<h1>Show</h1>}
+            element={<Note />}
           />
           <Route
             path='edit'

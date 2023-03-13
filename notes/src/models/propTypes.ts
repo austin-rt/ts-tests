@@ -23,3 +23,7 @@ export type NoteCardProps = {
   title: string;
   id: string;
 };
+
+export type NoteLayoutProps = {
+  notes: Note[];
+};
