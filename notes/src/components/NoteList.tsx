@@ -1,8 +1,13 @@
+import { useState } from 'react';
 import { Button, Col, Form, Row, Stack } from 'react-bootstrap';
 import ReactSelect from 'react-select';
 import { Link } from 'react-router-dom';
+import { Tag } from '../models/types';
+import { NoteListProps } from '../models/propTypes';
 
-const NoteList = ({ availableTags }) => {
+const NoteList = ({ availableTags }: NoteListProps) => {
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+
   return (
     <>
       <Row>
