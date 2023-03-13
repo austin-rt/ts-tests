@@ -9,6 +9,7 @@ import NewNote from './components/NewNote';
 import NoteList from './components/NoteList';
 import NoteLayout from './components/NoteLayout';
 import Note from './components/Note';
+import EditNote from './components/EditNote';
 
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
@@ -29,6 +30,18 @@ function App() {
         ...prevNotes,
         { ...data, id: uuidV4(), tagIds: tags.map(tag => tag.id) }
       ];
+    });
+  };
+
+  const onUpdateNote = (id: string, { tags, ...data }: NoteData) => {
+    setNotes(prevNotes => {
+      return prevNotes.map(note => {
+        if (note.id === id) {
+          return { ...note, ...data, tagIds: tags.map(tag => tag.id) };
+        } else {
+          return note;
+        }
+      });
     });
   };
 
@@ -68,7 +81,13 @@ function App() {
           />
           <Route
             path='edit'
-            element={<h1>Edit</h1>}
+            element={
+              <EditNote
+                onSubmit={onUpdateNote}
+                onAddTag={addTag}
+                availableTags={tags}
+              />
+            }
           />
         </Route>
         <Route

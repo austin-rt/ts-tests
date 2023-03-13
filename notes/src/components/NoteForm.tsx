@@ -6,13 +6,20 @@ import { v4 as uuidV4 } from 'uuid';
 import { NoteFormProps } from '../models/propTypes';
 import { Tag } from '../models/types';
 
-const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
+const NoteForm = ({
+  onSubmit,
+  onAddTag,
+  availableTags,
+  title = '',
+  markdown = '',
+  tags = []
+}: NoteFormProps) => {
   const navigate = useNavigate();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
 
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -34,6 +41,7 @@ const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
               <Form.Control
                 required
                 ref={titleRef}
+                defaultValue={title}
               />
             </Form.Group>
           </Col>
@@ -71,6 +79,7 @@ const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
             as='textarea'
             ref={markdownRef}
             rows={15}
+            defaultValue={markdown}
           />
         </Form.Group>
         <Stack
