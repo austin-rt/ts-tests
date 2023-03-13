@@ -7,9 +7,15 @@ import { NoteListProps } from '../models/propTypes';
 import NoteCard from './NoteCard';
 import EditTagsModal from './EditTagsModal';
 
-const NoteList = ({ availableTags, notes }: NoteListProps) => {
+const NoteList = ({
+  availableTags,
+  notes,
+  onUpdate,
+  onDelete
+}: NoteListProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState<string>('');
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const filteredNotes = useMemo(() => {
     return notes.filter(note => {
@@ -43,7 +49,14 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
                 Create
               </Button>
             </Link>
-            <Button variant='outline-secondary'>Edit Tags</Button>
+            <Button
+              variant='outline-secondary'
+              onClick={() => {
+                setModalIsOpen(true);
+              }}
+            >
+              Edit Tags
+            </Button>
           </Stack>
         </Col>
       </Row>
@@ -101,7 +114,15 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
           </Col>
         ))}
       </Row>
-      <EditTagsModal availableTags={availableTags} />
+      <EditTagsModal
+        availableTags={availableTags}
+        show={modalIsOpen}
+        handleClose={() => {
+          setModalIsOpen(false);
+        }}
+        onUpdate={onUpdate}
+        onDelete={onDelete}
+      />
     </>
   );
 };
