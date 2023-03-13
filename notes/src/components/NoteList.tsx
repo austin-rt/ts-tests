@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Tag } from '../models/types';
 import { NoteListProps } from '../models/propTypes';
 import NoteCard from './NoteCard';
+import EditTagsModal from './EditTagsModal';
 
 const NoteList = ({ availableTags, notes }: NoteListProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -41,8 +42,8 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
               >
                 Create
               </Button>
-              <Button variant='outline-secondary'>Edit Tags</Button>
             </Link>
+            <Button variant='outline-secondary'>Edit Tags</Button>
           </Stack>
         </Col>
       </Row>
@@ -100,6 +101,7 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
           </Col>
         ))}
       </Row>
+      <EditTagsModal availableTags={availableTags} />
     </>
   );
 };

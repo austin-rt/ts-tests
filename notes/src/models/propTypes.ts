@@ -33,3 +33,11 @@ export type NoteCardProps = {
 export type NoteLayoutProps = {
   notes: Note[];
 };
+
+export type NoteProps = {
+  onDelete: (id: string) => void;
+};
+
+export type EditTagsModalProps = {
+  availableTags: Tag[];
+};
